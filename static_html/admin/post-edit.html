@@ -34,24 +34,31 @@
 <br><br><br>
 
 <body>
-<main class="container">
+<main class="container" align="center">
 
     <h2>Edit Post</h2>
-    <table>
-        <tr>
-            <td>Post Name</td>
-            <td><input type="text" id="PostName"></td>
-        </tr>
-        <tr>
-            <td>Author</td>
-            <td><input type="text" id="PostAuthor"></td>
-        </tr>
-        <tr>
-            <td>Content</td>
-            <td><input type="text" id="PostContent"></td>
-        </tr>
-    </table>
-    <button type="button" class="btn btn-secondary" id="btnAddPost" onclick="updatePost()">Update Post</button>
+    <br><br>
+
+    <div align="center">
+        <form id="PostForm">
+            <div class="mb-3 w-50">
+                <label class="form-label" for="name">Title:</label>
+                <input class="form-control tile-beige" type='text' id="PostName" required>
+            </div>
+            <div class="mb-3 w-50">
+                <label class="form-label" for="subject">Author:</label>
+                <input class="form-control tile-beige" type='text' id="PostAuthor" required>
+            </div>
+            <div class="mb-3 w-50">
+                <label class="form-label" for="message">Content:</label>
+                <textarea class="form-control tile-beige" rows="4" id='PostContent' required></textarea>
+            </div>
+            <div>
+                <button type="button" class="btn btn-secondary" id="btnAddPost" onclick="updatePost()">Update Post</button>
+            </div>
+        </form>
+    </div>
+   
 </main>
 <script>
     let token = localStorage.getItem("token");

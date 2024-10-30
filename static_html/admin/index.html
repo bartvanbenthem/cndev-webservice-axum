@@ -34,22 +34,24 @@
 <br><br><br>
 
 <body>
-    <main class="container">
+    <main class="container" align="center" >
 
-        <div class="mb-3">
+        <div class="mb-3" align="center">
             <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username">
+            <input type="text" class="form-control w-50" id="username">
         </div>
-        <div class="mb-3">
+        <div class="mb-3" align="center">
             <label for="password" class="form-label">Password</label>
-            <input type="text" class="form-control" id="password">
+            <input type="text" class="form-control w-50" id="password">
         </div>
 
         <button id="login" type="button" class="btn btn-secondary">Login</button>
 
         <hr>
+        <br>
         <a class="btn btn-secondary" href="../index.html"> Back to website</a>
     </main>
+
     <script>
         $("#login").on('click', () => {
             let username = $("#username").val();

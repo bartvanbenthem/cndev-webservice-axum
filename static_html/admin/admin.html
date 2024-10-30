@@ -37,26 +37,33 @@
 
         <h1>Admin Users</h1>
         <div id="admins"></div>
-
-        <h1>Posts</h1>
+        <br>
+        <h1>Blog Posts</h1>
         <div id="posts"></div>
 
-        <h2>Add Post</h2>
-        <table>
-            <tr>
-                <td>Post Name</td>
-                <td><input type="text" id="newPostName"></td>
-            </tr>
-            <tr>
-                <td>Author</td>
-                <td><input type="text" id="newPostAuthor"></td>
-            </tr>
-            <tr>
-                <td>Content</td>
-                <td><input type="text" id="newPostContent"></td>
-            </tr>
-        </table>
-        <button type="button" class="btn btn-secondary" id="btnAddPost">Add Post</button>
+        <br>
+        <div align="center">
+            <form id="PostForm">
+                <div class="mb-3 w-50">
+                    <label class="form-label" for="name">Title:</label>
+                    <input class="form-control tile-beige" type='text' id="newPostName" required>
+                    <small id="nameError" class="text-danger"></small>
+                </div>
+                <div class="mb-3 w-50">
+                    <label class="form-label" for="subject">Author:</label>
+                    <input class="form-control tile-beige" type='text' id="newPostAuthor" required>
+                    <small id="subjectError" class="text-danger"></small>
+                </div>
+                <div class="mb-3 w-50">
+                    <label class="form-label" for="message">Content:</label>
+                    <textarea class="form-control tile-beige" rows="4" id='newPostContent' required></textarea>
+                    <small id="messageError" class="text-danger"></small>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-secondary" id="btnAddPost">Add Post</button>
+                </div>
+            </form>
+        </div>
     </main>
     <script>
         let token = localStorage.getItem("token");
