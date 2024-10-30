@@ -57,9 +57,8 @@ pub async fn update_post(
 
 pub async fn get_about(
     Extension(db_pool): Extension<StoreDb>,
-    path: axum::extract::Path<i32>,
 ) -> Result<Json<About>, StatusCode> {
-    let about = db::get_about(db_pool, path.0)
+    let about = db::get_about(db_pool)
         .await
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
     Ok(Json(about))

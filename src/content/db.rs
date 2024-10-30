@@ -82,9 +82,8 @@ pub struct About {
     pub content: String
 }
 
-pub async fn get_about(db_pool: StoreDb, id: i32) -> Result<About> {
+pub async fn get_about(db_pool: StoreDb) -> Result<About> {
     let about_content = sqlx::query_as::<_, About>("SELECT * FROM about")
-        .bind(id)
         .fetch_one(&db_pool.0)
         .await?;
     Ok(about_content)

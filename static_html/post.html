@@ -9,6 +9,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
     <script src="js/helpers.js" type="text/javascript"></script>
+    <script src="js/footer.js" type="text/javascript"></script>
 </head>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 navbar-custom">
@@ -39,7 +40,11 @@
         <div id="postList"></div>
         <br><br>
         <a class="btn btn-secondary" href="index.html">Back</a>
+
     </main>
+
+    <br><br>
+    <div id="footerContainer"></div>
     
     <script>
         let id = getUrlVars()["id"];
@@ -58,17 +63,25 @@
         function showPost() {
             console.log(id);
             $.get("/api/v1/content/posts/" + id, function (data) {
-                var postList = "<table class='table table-striped'><thead><tr><th>Title</th><th>Author</th></tr></thead><tbody>";
                 var post = data;
-                let url = "post.html?id=" + post.id;
-                postList += "<tr><td>" + post.title + "</td><td>" + post.author + "</td></tr>";
-                postList += "</tbody></table>";
-                console.log(postList);
-                $("#postList").html(postList);
+                
+                // Create the HTML structure with h2 for the title, small for the author, and p for content
+                var postContent = `
+                    <div class="container w-50" align="center">
+                        <h2>${post.title}</h2>
+                        <small>By ${post.author}</small>
+                        <br><br>
+                        <p align="center">${post.content}</p>
+                    </div>
+                `;
+
+                console.log(postContent);
+                $("#postList").html(postContent); // Replace the #postList content with new HTML
             });
         }
 
         $(document).ready(showPost);
+        
     </script>
 </body>
 

@@ -8,6 +8,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
     <script src="js/helpers.js" type="text/javascript"></script>
+    <script src="js/footer.js" type="text/javascript"></script>
 </head>
 
 <body>  
@@ -23,7 +24,7 @@
                 <a class="nav-link" href='/'>Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#about">About</a>
+                <a class="nav-link" href="#showAbout">About</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#services">Services</a>
@@ -110,8 +111,8 @@
     <div id="postList"></div>
 
     <!-- ABOUT -->
-    <div id="about"></div>
-
+    <br><br>
+    <div class="tile-darkgreen" id="showAbout"></div>
     <!-- SERVICES -->
     <div id="services"></div>
 
@@ -169,51 +170,7 @@
     </div>
 </main>
 
-<footer  class="text-white text-center text-lg-start tile-darkgreen mt-auto">
-    <!-- Grid container -->
-      <div class="container p-4">
-        <!--Grid row-->
-        <div class="row">
-          <!--Grid column-->
-          <div class="col-lg-4 col-md-6 mb-4 mb-md-0 text-center">
-            <h3 class="text-dark">Locatie</h3>
-            <p>Zypendaalse weg 999
-            <br>Arnhem, 6828 LK
-            <br>Sonsbeek Park</p>
-  
-          </div>
-          <!--Grid column-->
-  
-          <!--Grid column-->
-          <div class="col-lg-4 col-md-6 mb-4 mb-md-0 text-center">
-            <h3 class="text-dark">make contact</h3>
-            <a class="link-light" href="#contact">Neem eerst contact op</a></br>
-            <a class="link-light" href="https://github.com/bartvanbenthem/"> Plan direct een afspraak</a></br>
-            </br>
-          </div>
-          <!--Grid column-->
-  
-          <!--Grid column-->
-          <div class="col-lg-4 col-md-6 mb-4 mb-md-0 text-center d-none d-md-block">
-            <h3 class="text-dark">Partners</h3>
-            <a class="link-light" href="https://github.com/bartvanbenthem/">[ test ]</a></br>
-            <a class="link-light" href="https://github.com/bartvanbenthem/">[ another test ]</a></br>
-            <a class="link-light" href="https://github.com/bartvanbenthem/">[ another test ]</a></br>
-          <!--Grid column-->
-        </div>
-        <!--Grid row-->
-      </div>
-      <!-- Grid container -->
-      </div>
-  
-      <!-- Copyright -->
-      <div class="text-center p-3 text-white tile-darkblue">
-        <p class="fw-light">KvK nr. 00000001</p>
-        © 2024 PoweredBy:
-        <a class="text-white" href="https://github.com/bartvanbenthem/cndev-webservice-axum">cndev.nl</a> 
-      </div>
-      <!-- Copyright -->
-  </footer>
+<div id="footerContainer"></div>
 
   <script>
 
@@ -265,12 +222,30 @@
 
         // Insert the new layout HTML into the container
         $("#postList").html(postLayout);
-    });
-}
+      });
+  }
 
-$(document).ready(listPosts);
+  $(document).ready(listPosts);
 
 // ABOUT //////////////////////////////////
+
+  function showAbout() {
+              $.get("/api/v1/content/about", function (data) {
+                  var about = data;
+                  
+                  // Create the HTML structure with h2 for the title, small for the author, and p for content
+                  var aboutContent = `
+                      <div class="container w-50" align="center">
+                          <p align="center">${about.content}</p>
+                      </div>
+                  `;
+
+                  console.log(aboutContent);
+                  $("#showAbout").html(aboutContent); // Replace the #postList content with new HTML
+              });
+  }
+
+  $(document).ready(showAbout);
 
     // CONTACT //////////////////////////////////
 
@@ -336,22 +311,3 @@ function clearErrors() {
 
 </body>
 </html>
-
-<script>
-// TEST POSTS //////////////////////////////////
-/*
-function listPosts() {
-    $.get("/api/v1/content/posts", function(data) {
-        var postList = "<table class='table table-striped'><thead><tr><th>Title</th><th>Author</th></tr></thead><tbody>";
-        for (var i = 0; i < data.length; i++) {
-            var post = data[i];
-            let url = "post.html?id=" + post.id;
-            postList += "<tr><td><a href='" + url + "'>" + post.title + "</a></td><td>" + post.author + "</td></tr>";
-        };
-        postList += "</tbody></table>";
-        console.log(postList);
-        $("#postList").html(postList);
-    });
-}
-*/
-</script>
