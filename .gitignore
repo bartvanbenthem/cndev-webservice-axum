@@ -1,0 +1,22 @@
+# Generated files
+/target/
+Cargo.lock
+
+# IDE/Editor files
+**/*.rs.bk
+**/*.swp
+.vscode/
+.idea/
+*.iml
+
+# Build artifacts
+/build/
+Cargo.toml.orig
+
+# OS or editor-specific files
+.DS_Store
+Thumbs.db
+
+# DB
+auth.db
+blog.db
