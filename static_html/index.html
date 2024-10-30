@@ -22,6 +22,12 @@
                 <a class="nav-link" href='/'>Home</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="#about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#services">Services</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="#contact">Contact</a>
               </li>
             </ul>
@@ -222,14 +228,14 @@
                     <div class="h-100 p-5 text-white tile-green rounded-3">
                         <h2>${latestPosts[0].title}</h2>
                         <p>${latestPosts[0].author}</p>
-                        <a href="/post/${latestPosts[0].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                        <a href="post.html?id=${latestPosts[0].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
                         <h2>${latestPosts[1].title}</h2>
                         <p>${latestPosts[1].author}</p>
-                        <a href="/post/${latestPosts[1].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                        <a href="post.html?id=${latestPosts[1].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                     </div>
                 </div>
             </div>
@@ -240,14 +246,14 @@
                         <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
                             <h2>${latestPosts[2].title}</h2>
                             <p>${latestPosts[2].author}</p>
-                            <a href="/post/${latestPosts[2].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                            <a href="post.html?id=${latestPosts[2].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="h-100 p-5 text-white tile-green rounded-3">
                             <h2>${latestPosts[3].title}</h2>
                             <p>${latestPosts[3].author}</p>
-                            <a href="/post/${latestPosts[3].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                            <a href="post.html?id=${latestPosts[3].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                         </div>
                     </div>
                 </div>
