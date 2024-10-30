@@ -1,9 +1,13 @@
+pub mod auth_layers;
 mod configuration;
 mod db;
 mod web_service;
-pub mod auth_layers;
 use anyhow::Result;
-use axum::{middleware, routing::{get, post}, Extension, Router};
+use axum::{
+    middleware,
+    routing::{get, post},
+    Extension, Router,
+};
 use tower_http::cors::CorsLayer;
 
 pub async fn setup_service() -> Result<Router> {

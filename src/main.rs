@@ -3,8 +3,8 @@ mod blog;
 mod service_config;
 use anyhow::Result;
 use axum::Extension;
-use tower_http::{cors::CorsLayer, services::ServeDir};
 use tower::ServiceBuilder;
+use tower_http::{cors::CorsLayer, services::ServeDir};
 
 #[tokio::main]
 async fn main() -> Result<()> {

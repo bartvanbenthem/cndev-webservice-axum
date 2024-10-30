@@ -1,8 +1,10 @@
+use super::{
+    auth_layers::ValidUser,
+    db::{self, User},
+};
+use crate::auth::db::get_user_id_from_token;
 use axum::{http::StatusCode, Extension, Json};
 use serde::{Deserialize, Serialize};
-use crate::auth::db::get_user_id_from_token;
-use super::{auth_layers::ValidUser, db::{self, User}};
-
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct LoginRequest {
@@ -104,10 +106,7 @@ pub async fn is_token_valid(
     Extension(db_pool): Extension<db::AuthDb>,
     token: axum::extract::Path<String>,
 ) -> Result<StatusCode, StatusCode> {
-    if let Ok(Some(_user_id)) = get_user_id_from_token(
-        db_pool.clone(),
-        &token
-    ).await {
+    if let Ok(Some(_user_id)) = get_user_id_from_token(db_pool.clone(), &token).await {
         Ok(StatusCode::OK)
     } else {
         Ok(StatusCode::UNAUTHORIZED)

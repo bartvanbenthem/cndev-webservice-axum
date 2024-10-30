@@ -10,8 +10,7 @@ pub async fn get_connection_pool(filename: &str) -> Result<AuthDb> {
         .filename(filename)
         .create_if_missing(true);
 
-    let connection_pool = sqlx::SqlitePool::connect_with(options)
-        .await?;
+    let connection_pool = sqlx::SqlitePool::connect_with(options).await?;
     Ok(AuthDb(connection_pool))
 }
 

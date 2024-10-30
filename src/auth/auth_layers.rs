@@ -1,7 +1,11 @@
-use axum::{
-    extract::Request, http::{HeaderMap, StatusCode}, middleware::Next, response::IntoResponse, Extension
-};
 use super::db;
+use axum::{
+    extract::Request,
+    http::{HeaderMap, StatusCode},
+    middleware::Next,
+    response::IntoResponse,
+    Extension,
+};
 
 #[allow(dead_code)]
 #[derive(Clone, Copy, Debug)]
@@ -14,12 +18,9 @@ pub async fn require_token(
     next: Next,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
     if let Some(auth_header) = headers.get("Token") {
-        let token = auth_header.to_str().map_err(|_| {
-            (
-                StatusCode::UNAUTHORIZED,
-                "invalid header".to_string(),
-            )
-        })?;
+        let token = auth_header
+            .to_str()
+            .map_err(|_| (StatusCode::UNAUTHORIZED, "invalid header".to_string()))?;
 
         if let Some(user_id) = db::get_user_id_from_token(db_pool, token)
             .await
@@ -51,20 +52,30 @@ pub async fn require_remote_token(
     next: Next,
 ) -> Result<impl IntoResponse, (StatusCode, String)> {
     if let Some(auth_header) = headers.get("Token") {
-        let token = auth_header.to_str().map_err(|_| {
-            (
-                StatusCode::UNAUTHORIZED,
-                "invalid header".to_string(),
-            )
-        })?;
+        let token = auth_header
+            .to_str()
+            .map_err(|_| (StatusCode::UNAUTHORIZED, "invalid header".to_string()))?;
 
-        let url = format!("http://localhost:{}/api/auth/is_token_valid/{token}",
-                          listen_port.0);
+        let url = format!(
+            "http://localhost:{}/api/auth/is_token_valid/{token}",
+            listen_port.0
+        );
         let _body = reqwest::get(&url)
-            .await.map_err(|_| (StatusCode::UNAUTHORIZED, "Invalid token request".to_string()))?
+            .await
+            .map_err(|_| {
+                (
+                    StatusCode::UNAUTHORIZED,
+                    "Invalid token request".to_string(),
+                )
+            })?
             .text()
-            .await.map_err(|_| (StatusCode::UNAUTHORIZED, "Invalid token request".to_string()))?
-            ;
+            .await
+            .map_err(|_| {
+                (
+                    StatusCode::UNAUTHORIZED,
+                    "Invalid token request".to_string(),
+                )
+            })?;
         tracing::info!("Validated Token");
 
         return Ok(next.run(req).await);

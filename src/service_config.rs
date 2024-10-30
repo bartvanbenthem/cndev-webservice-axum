@@ -1,6 +1,6 @@
+use anyhow::Result;
 use config::Config;
 use serde::{Deserialize, Serialize};
-use anyhow::Result;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ServiceConfig {
@@ -20,10 +20,8 @@ impl ServiceConfig {
             .add_source(config::Environment::with_prefix("APP"))
             .build()?;
 
-        let settings = settings_reader
-            .try_deserialize()?;
+        let settings = settings_reader.try_deserialize()?;
 
         Ok(settings)
-
     }
 }

@@ -18,8 +18,7 @@ impl AuthConfiguration {
             .add_source(config::Environment::with_prefix("AUTH"))
             .build()?;
 
-        let settings = settings_reader
-            .try_deserialize()?;
+        let settings = settings_reader.try_deserialize()?;
 
         Ok(settings)
     }

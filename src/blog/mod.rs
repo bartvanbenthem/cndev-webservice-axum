@@ -1,11 +1,15 @@
 mod configuration;
 mod db;
 mod web_service;
-use anyhow::Result;
-use axum::{middleware, routing::{get, post}, Extension, Router};
-use tower_http::cors::CorsLayer;
 use crate::auth::auth_layers;
 use crate::auth::auth_layers::ListenPort;
+use anyhow::Result;
+use axum::{
+    middleware,
+    routing::{get, post},
+    Extension, Router,
+};
+use tower_http::cors::CorsLayer;
 
 pub async fn setup_service(listen_port: String) -> Result<Router> {
     let config = configuration::PostConfiguration::load()?;
