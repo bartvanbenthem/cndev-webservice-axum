@@ -21,16 +21,17 @@ pub async fn setup_service(listen_port: String) -> Result<Router> {
         .layer(CorsLayer::very_permissive())
         .layer(Extension(config.clone()))
         .layer(Extension(db_pool.clone()))
-        .route("/add", post(web_service::add_post))
-        .route("/delete/:id", get(web_service::delete_post))
-        .route("/update/:id", post(web_service::update_post))
+        .route("/posts/add", post(web_service::add_post))
+        .route("/posts/delete/:id", get(web_service::delete_post))
+        .route("/posts/update/:id", post(web_service::update_post))
         .route_layer(middleware::from_fn(auth_layers::require_remote_token))
         .layer(Extension(ListenPort(listen_port)));
 
     let router = Router::new()
         .merge(secure_router)
-        .route("/", get(web_service::all_posts))
-        .route("/:id", get(web_service::get_post))
+        .route("/posts", get(web_service::all_posts))
+        .route("/posts/:id", get(web_service::get_post))
+        .route("/about", get(web_service::get_about))
         .layer(Extension(config))
         .layer(Extension(db_pool));
 

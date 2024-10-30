@@ -88,7 +88,7 @@
         }
 
         function loadPosts() {
-            $.get("/api/v1/posts", function(data) {
+            $.get("/api/v1/content/posts", function(data) {
                 var postList = "<table class='table table-striped'><thead><tr><th>Title</th><th>Author</th><th>content</th></tr></thead><tbody>";
                 for (var i = 0; i < data.length; i++) {
                     var post = data[i];
@@ -111,7 +111,7 @@
                 }
 
                 $.ajax({
-                    url: "/api/v1/posts/add",
+                    url: "/api/v1/content/posts/add",
                     type: "POST",
                     headers: { "Token" : token },
                     data: JSON.stringify({
@@ -135,7 +135,7 @@
         function deletePost(id) {
             if (confirm("Are you sure?")) {
                 $.ajax({
-                    url: "/api/v1/posts/delete/" + id,
+                    url: "/api/v1/content/posts/delete/" + id,
                     type: "GET",
                     headers: { "Token" : token },
                     contentType: "application/json; charset=utf-8",

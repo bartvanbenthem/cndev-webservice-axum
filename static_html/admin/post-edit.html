@@ -58,7 +58,7 @@
     function loadAll() {
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
-        $.get("/api/v1/posts/" + id, (data) => {
+        $.get("/api/v1/content/posts/" + id, (data) => {
             $("#PostName").val(data.title);
             $("#PostAuthor").val(data.author);
             $("#PostContent").val(data.content);
@@ -72,7 +72,7 @@
         let author = $("#PostAuthor").val();
         let content = $("#PostContent").val();
         $.ajax({
-            url: "/api/v1/posts/update/" + id,
+            url: "/api/v1/content/posts/update/" + id,
             type: "POST",
             headers: { "Token" : token },
             data: JSON.stringify({

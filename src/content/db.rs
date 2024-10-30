@@ -15,11 +15,13 @@ pub async fn get_connection_pool(filename: &str) -> Result<StoreDb> {
 }
 
 pub async fn perform_migrations(db_pool: StoreDb) -> Result<()> {
-    sqlx::migrate!("src/blog/migrations")
+    sqlx::migrate!("src/content/migrations")
         .run(&db_pool.0)
         .await?;
     Ok(())
 }
+
+// CONTENT BLOG POSTS ///
 
 #[derive(Serialize, Deserialize, Debug, FromRow)]
 pub struct Post {
@@ -71,4 +73,19 @@ pub async fn update_post(db_pool: StoreDb, id: i32, title: String, author: Strin
         .execute(&db_pool.0)
         .await?;
     Ok(())
+}
+
+// CONTENT ABOUT ///
+
+#[derive(Serialize, Deserialize, Debug, FromRow)]
+pub struct About {
+    pub content: String
+}
+
+pub async fn get_about(db_pool: StoreDb, id: i32) -> Result<About> {
+    let about_content = sqlx::query_as::<_, About>("SELECT * FROM about")
+        .bind(id)
+        .fetch_one(&db_pool.0)
+        .await?;
+    Ok(about_content)
 }

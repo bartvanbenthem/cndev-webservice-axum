@@ -55,7 +55,7 @@
 
         function showPost() {
             console.log(id);
-            $.get("/api/v1/posts/" + id, function (data) {
+            $.get("/api/v1/content/posts/" + id, function (data) {
                 var postList = "<table class='table table-striped'><thead><tr><th>Title</th><th>Author</th></tr></thead><tbody>";
                 var post = data;
                 let url = "post.html?id=" + post.id;

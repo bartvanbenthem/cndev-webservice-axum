@@ -217,8 +217,13 @@
   <script>
 
     // POSTS //////////////////////////////////
+
+    function truncateContent(content, wordCount) {
+      return content.split(" ").slice(0, wordCount).join(" ") + (content.split(" ").length > wordCount ? '...' : '');
+    }
+
     function listPosts() {
-    $.get("/api/v1/posts", function(data) {
+    $.get("/api/v1/content/posts", function(data) {
         // Get the last 4 posts (assuming data is already ordered by newest to oldest)
         const latestPosts = data.slice(-4).reverse(); // Take last 4 posts and reverse to have the latest first
 
@@ -228,14 +233,14 @@
                 <div class="col-md-6 mb-3 mb-md-0">
                     <div class="h-100 p-5 text-white tile-green rounded-3">
                         <h2>${latestPosts[0].title}</h2>
-                        <p>${latestPosts[0].content}</p>
+                        <p>${truncateContent(latestPosts[0].content, 20)}</p>
                         <a href="post.html?id=${latestPosts[0].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
                         <h2>${latestPosts[1].title}</h2>
-                        <p>${latestPosts[1].content}</p>
+                        <p>${truncateContent(latestPosts[1].content, 20)}</p>
                         <a href="post.html?id=${latestPosts[1].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                     </div>
                 </div>
@@ -246,14 +251,14 @@
                     <div class="col-md-6">
                         <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
                             <h2>${latestPosts[2].title}</h2>
-                            <p>${latestPosts[2].content}</p>
+                            <p>${truncateContent(latestPosts[2].content, 20)}</p>
                             <a href="post.html?id=${latestPosts[2].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="h-100 p-5 text-white tile-green rounded-3">
                             <h2>${latestPosts[3].title}</h2>
-                            <p>${latestPosts[3].content}</p>
+                            <p>${truncateContent(latestPosts[3].content, 20)}</p>
                             <a href="post.html?id=${latestPosts[3].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                         </div>
                     </div>
@@ -340,7 +345,7 @@ function clearErrors() {
 // TEST POSTS //////////////////////////////////
 /*
 function listPosts() {
-    $.get("/api/v1/posts", function(data) {
+    $.get("/api/v1/content/posts", function(data) {
         var postList = "<table class='table table-striped'><thead><tr><th>Title</th><th>Author</th></tr></thead><tbody>";
         for (var i = 0; i < data.length; i++) {
             var post = data[i];
