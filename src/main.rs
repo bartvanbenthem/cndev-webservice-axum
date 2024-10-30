@@ -11,7 +11,7 @@ async fn main() -> Result<()> {
     tracing_subscriber::fmt::init();
     let service_settings = service_config::ServiceConfig::load()?;
     let auth_router = auth::setup_service().await?;
-    let posts_router = blog::setup_service(service_settings.listen_port.clone()).await?;
+    let blog_router = blog::setup_service(service_settings.listen_port.clone()).await?;
 
     // Listen address from configuration
     let listen_address = format!(
@@ -30,7 +30,7 @@ async fn main() -> Result<()> {
     let master_router = axum::Router::new()
         .layer(CorsLayer::very_permissive())
         .nest("/api/v1/auth", auth_router)
-        .nest("/api/v1/posts", posts_router)
+        .nest("/api/v1/posts", blog_router)
         .layer(Extension(service_settings))
         .nest_service("/", static_content);
 
