@@ -11,3 +11,4 @@ CREATE TABLE tokens (
 );
 
 INSERT INTO users (username, password) VALUES ('admin', 'admin');
+INSERT INTO users (username, password) VALUES ('editor', 'editor');

@@ -7,7 +7,6 @@ use axum::{
     Extension,
 };
 
-#[allow(dead_code)]
 #[derive(Clone, Copy, Debug)]
 pub struct ValidUser(pub i32);
 
@@ -31,7 +30,9 @@ pub async fn require_token(
                 )
             })?
         {
-            req.extensions_mut().insert(ValidUser(user_id));
+            let user = ValidUser(user_id);
+            req.extensions_mut().insert(user);
+            tracing::info!("User with ID {:?} logged in", user.0);
             return Ok(next.run(req).await);
         }
     }
