@@ -117,10 +117,12 @@
     <div id="services"></div>
 
     <!-- CONTACT -->
-    <div class="container" id="contact">
+    <div class="container" align="center" id="contact">
     </br></br>
+    <h2>Neem contact op</h2>
+    <hr>
         <div class="row">
-            <div class="col-xs-2" align="center">   
+            <div class="col-xs-2">   
                 <form id="contactForm" action='/contact' method='POST'>
                     <!-- Include the CSRF token -->
                     <input type='hidden' name='csrf_token' value='{{token}}'>
