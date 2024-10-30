@@ -34,7 +34,7 @@ pub async fn add_post(
     Extension(db_pool): Extension<StoreDb>,
     Json(post): Json<Post>,
 ) -> Result<StatusCode, StatusCode> {
-    db::add_post(db_pool, post.title, post.author)
+    db::add_post(db_pool, post.title, post.author, post.content)
         .await
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
     Ok(StatusCode::OK)
@@ -45,7 +45,7 @@ pub async fn update_post(
     path: axum::extract::Path<i32>,
     Json(post): Json<Post>,
 ) -> Result<StatusCode, StatusCode> {
-    db::update_post(db_pool, path.0, post.title, post.author)
+    db::update_post(db_pool, path.0, post.title, post.author, post.content)
         .await
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
     Ok(StatusCode::OK)

@@ -26,6 +26,7 @@ pub struct Post {
     pub id: i32,
     pub title: String,
     pub author: String,
+    pub content: String,
 }
 
 pub async fn list_posts(db_pool: StoreDb) -> Result<Vec<Post>> {
@@ -51,19 +52,21 @@ pub async fn delete_post(db_pool: StoreDb, id: i32) -> Result<()> {
     Ok(())
 }
 
-pub async fn add_post(db_pool: StoreDb, title: String, author: String) -> Result<()> {
-    sqlx::query("INSERT INTO posts (title, author) VALUES (?, ?)")
+pub async fn add_post(db_pool: StoreDb, title: String, author: String, content: String) -> Result<()> {
+    sqlx::query("INSERT INTO posts (title, author, content) VALUES (?, ?, ?)")
         .bind(title)
         .bind(author)
+        .bind(content)
         .execute(&db_pool.0)
         .await?;
     Ok(())
 }
 
-pub async fn update_post(db_pool: StoreDb, id: i32, title: String, author: String) -> Result<()> {
-    sqlx::query("UPDATE posts SET title = ?, author = ? WHERE id = ?")
+pub async fn update_post(db_pool: StoreDb, id: i32, title: String, author: String, content: String) -> Result<()> {
+    sqlx::query("UPDATE posts SET title = ?, author = ?, content = ? WHERE id = ?")
         .bind(title)
         .bind(author)
+        .bind(content)
         .bind(id)
         .execute(&db_pool.0)
         .await?;

@@ -8,8 +8,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-    
+
+<body>  
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 navbar-custom">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">CNDEV</a>
@@ -112,6 +112,7 @@
     <div id="about"></div>
 
     <!-- SERVICES -->
+    <div id="services"></div>
 
     <!-- CONTACT -->
     <div class="container" id="contact">
@@ -227,14 +228,14 @@
                 <div class="col-md-6 mb-3 mb-md-0">
                     <div class="h-100 p-5 text-white tile-green rounded-3">
                         <h2>${latestPosts[0].title}</h2>
-                        <p>${latestPosts[0].author}</p>
+                        <p>${latestPosts[0].content}</p>
                         <a href="post.html?id=${latestPosts[0].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
                         <h2>${latestPosts[1].title}</h2>
-                        <p>${latestPosts[1].author}</p>
+                        <p>${latestPosts[1].content}</p>
                         <a href="post.html?id=${latestPosts[1].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                     </div>
                 </div>
@@ -245,14 +246,14 @@
                     <div class="col-md-6">
                         <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
                             <h2>${latestPosts[2].title}</h2>
-                            <p>${latestPosts[2].author}</p>
+                            <p>${latestPosts[2].content}</p>
                             <a href="post.html?id=${latestPosts[2].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="h-100 p-5 text-white tile-green rounded-3">
                             <h2>${latestPosts[3].title}</h2>
-                            <p>${latestPosts[3].author}</p>
+                            <p>${latestPosts[3].content}</p>
                             <a href="post.html?id=${latestPosts[3].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                         </div>
                     </div>
