@@ -125,39 +125,37 @@
     <hr>
         <div class="row">
             <div class="col-xs-2">   
-                <form id="contactForm" action='/contact' method='POST'>
-                    <!-- Include the CSRF token -->
-                    <input type='hidden' name='csrf_token' value='{{token}}'>
-                    <div class="mb-3 w-50">
-                        <label class="form-label" for="name">Naam:</label>
-                        <input class="form-control tile-beige" type='text' name='name' id='name' required>
-                        <small id="nameError" class="text-danger"></small>
-                    </div>
-                    <div class="mb-3 w-50">
-                        <label class="form-label" for="from">Email:</label>
-                        <input class="form-control tile-beige" type='email' name='from' id='from' required>
-                        <small id="emailError" class="text-danger"></small>
-                    </div>
-                    <div class="mb-3 w-50">
-                        <label class="form-label" for="phone">Tel. Nummer:</label>
-                        <input class="form-control tile-beige" type='text' name='phone' id='phone' required>
-                        <small id="phoneError" class="text-danger"></small>
-                    </div>
-                    <div class="mb-3 w-50">
-                        <label class="form-label" for="subject">Onderwerp:</label>
-                        <input class="form-control tile-beige" type='text' name='subject' id='subject' required>
-                        <small id="subjectError" class="text-danger"></small>
-                    </div>
-                    <div class="mb-3 w-50">
-                        <label class="form-label" for="message">Bericht:</label>
-                        <textarea class="form-control tile-beige" rows="3" name='message' id='message' required></textarea>
-                        <small id="messageError" class="text-danger"></small>
-                    </div>
-                    <div>
-                        <input type="submit" class="btn btn-secondary" value="Send" />
-                    </div>
-                </form>
-            
+                <form id="contactForm">
+                  <!-- Include the CSRF token if needed -->
+                  <div class="mb-3 w-50">
+                      <label class="form-label" for="name">Naam:</label>
+                      <input class="form-control tile-beige" type="text" name="name" id="name" required>
+                      <small id="nameError" class="text-danger"></small>
+                  </div>
+                  <div class="mb-3 w-50">
+                      <label class="form-label" for="from">Email:</label>
+                      <input class="form-control tile-beige" type="email" name="from" id="from" required>
+                      <small id="emailError" class="text-danger"></small>
+                  </div>
+                  <div class="mb-3 w-50">
+                      <label class="form-label" for="phone">Tel. Nummer:</label>
+                      <input class="form-control tile-beige" type="text" name="phone" id="phone" required>
+                      <small id="phoneError" class="text-danger"></small>
+                  </div>
+                  <div class="mb-3 w-50">
+                      <label class="form-label" for="subject">Onderwerp:</label>
+                      <input class="form-control tile-beige" type="text" name="subject" id="subject" required>
+                      <small id="subjectError" class="text-danger"></small>
+                  </div>
+                  <div class="mb-3 w-50">
+                      <label class="form-label" for="message">Bericht:</label>
+                      <textarea class="form-control tile-beige" rows="3" name="message" id="message" required></textarea>
+                      <small id="messageError" class="text-danger"></small>
+                  </div>
+                  <div>
+                      <input type="submit" class="btn btn-secondary" value="Send" />
+                  </div>
+              </form>
             </div>
         </div>
     </div>
@@ -237,7 +235,7 @@
               $.get("/api/v1/content/about", function (data) {
                   var about = data;
                   
-                  // Create the HTML structure with h2 for the title, small for the author, and p for content
+                  // Create the HTML structure with h2 for the title.
                   var aboutContent = `
                       <div class="container w-50 text-dark" align="center">
                           <br><br>
@@ -256,6 +254,7 @@
 
     // CONTACT //////////////////////////////////
 
+    // FORM VALIDATION
     document.getElementById('contactForm').addEventListener('submit', function(event) {
     let isValid = true; // Flag to track validity
     clearErrors(); // Clear previous error messages
@@ -313,6 +312,40 @@ function clearErrors() {
         document.getElementById(id).textContent = '';
     });
 }
+
+// SEND EMAIL
+document.getElementById('contactForm').addEventListener('submit', async function (event) {
+       event.preventDefault(); // Prevent default form submission
+
+       // Collect form data
+       const formData = new FormData(this);
+
+       // Convert form data to URL-encoded format
+       const urlEncodedData = new URLSearchParams(formData);
+
+       try {
+           // Send the request as x-www-form-urlencoded
+           const response = await fetch('api/v1/mail/send', {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/x-www-form-urlencoded',
+               },
+               body: urlEncodedData,
+           });
+
+           // Handle the response
+           if (response.ok) {
+               alert('Email sent successfully!');
+               this.reset(); // Optionally reset the form
+           } else {
+               const errorText = await response.text();
+               alert(`Failed to send email: ${errorText}`);
+           }
+       } catch (error) {
+           console.error('Error submitting form:', error);
+           alert('An error occurred while sending the email. Please try again later.');
+       }
+   });
 
 </script>
 
