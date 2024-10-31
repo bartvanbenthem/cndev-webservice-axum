@@ -10,6 +10,8 @@ pub struct MailConfiguration {
     pub smtp_port: u16,
     pub mail_address: String,
     pub tls: bool,
+    pub tls_domain: String,
+    pub tls_cert: String,
 }
 
 impl MailConfiguration {

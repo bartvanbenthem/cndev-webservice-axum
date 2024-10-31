@@ -1,7 +1,9 @@
 mod configuration;
 mod web_service;
+mod helpers;
 
 use crate::mail::web_service::*;
+use crate::mail::configuration::*;
 
 use anyhow::Result;
 use axum::{
