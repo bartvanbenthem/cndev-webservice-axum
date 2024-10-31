@@ -15,7 +15,7 @@ impl PostConfiguration {
 
         let settings_reader = Config::builder()
             .add_source(config::File::with_name("settings").required(false))
-            .add_source(config::Environment::with_prefix("BLOG"))
+            .add_source(config::Environment::with_prefix("CONTENT"))
             .build()?;
 
         let settings = settings_reader.try_deserialize()?;
