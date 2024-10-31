@@ -1,21 +1,15 @@
-use crate::mail::MailConfiguration;
 use crate::mail::helpers::build_tls_parameters;
+use crate::mail::MailConfiguration;
 
-use axum::{
-    extract::State,
-    extract::Form,
-    http::StatusCode,
-    response::IntoResponse,
-};
+use axum::{extract::Form, extract::State, http::StatusCode, response::IntoResponse};
 
 use lettre::message::header::ContentType;
 use lettre::transport::smtp::authentication::Credentials;
 use lettre::transport::smtp::client::Tls;
-use lettre::{Message, Transport, SmtpTransport};
+use lettre::{Message, SmtpTransport, Transport};
 use serde::Deserialize;
 
 use std::sync::Arc;
-
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct FormData {
@@ -46,24 +40,26 @@ pub async fn send_email(
     let creds = Credentials::new(config.smtp_user.clone(), config.smtp_password.clone());
 
     // Setup SMTP transport with appropriate TLS setting
-    let mailer = if config.tls && config.tls_cert.len() == 0  {
+    let mailer = if config.tls && config.tls_cert.len() == 0 {
         match SmtpTransport::relay(&config.smtp_host) {
-            Ok(smtp) => smtp
-                .port(config.smtp_port)
-                .credentials(creds)
-                .build(),
+            Ok(smtp) => smtp.port(config.smtp_port).credentials(creds).build(),
             Err(err) => {
                 eprintln!("Failed to create SMTP transport with TLS: {}", err);
                 return (StatusCode::INTERNAL_SERVER_ERROR, "Failed to send email").into_response();
             }
         }
     } else if config.tls && config.tls_cert.len() != 0 {
-
         let tls_result = build_tls_parameters(&config);
         let tls = match tls_result {
             Ok(tls) => tls,
-            Err(_) => return (StatusCode::INTERNAL_SERVER_ERROR, 
-                    "Failed to build TLS Parameters").into_response()
+            Err(err) => {
+                eprintln!("Failed to build TLS parameters: {}", err);
+                return (
+                    StatusCode::INTERNAL_SERVER_ERROR,
+                    "Failed to build TLS Parameters",
+                )
+                    .into_response();
+            }
         };
 
         match SmtpTransport::relay(&config.smtp_host) {

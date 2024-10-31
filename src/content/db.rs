@@ -54,7 +54,12 @@ pub async fn delete_post(db_pool: StoreDb, id: i32) -> Result<()> {
     Ok(())
 }
 
-pub async fn add_post(db_pool: StoreDb, title: String, author: String, content: String) -> Result<()> {
+pub async fn add_post(
+    db_pool: StoreDb,
+    title: String,
+    author: String,
+    content: String,
+) -> Result<()> {
     sqlx::query("INSERT INTO posts (title, author, content) VALUES (?, ?, ?)")
         .bind(title)
         .bind(author)
@@ -64,7 +69,13 @@ pub async fn add_post(db_pool: StoreDb, title: String, author: String, content: 
     Ok(())
 }
 
-pub async fn update_post(db_pool: StoreDb, id: i32, title: String, author: String, content: String) -> Result<()> {
+pub async fn update_post(
+    db_pool: StoreDb,
+    id: i32,
+    title: String,
+    author: String,
+    content: String,
+) -> Result<()> {
     sqlx::query("UPDATE posts SET title = ?, author = ?, content = ? WHERE id = ?")
         .bind(title)
         .bind(author)
@@ -79,7 +90,7 @@ pub async fn update_post(db_pool: StoreDb, id: i32, title: String, author: Strin
 
 #[derive(Serialize, Deserialize, Debug, FromRow)]
 pub struct About {
-    pub content: String
+    pub content: String,
 }
 
 pub async fn get_about(db_pool: StoreDb) -> Result<About> {

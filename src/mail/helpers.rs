@@ -1,4 +1,4 @@
-use lettre::transport::smtp::client::{TlsParameters, Certificate};
+use lettre::transport::smtp::client::{Certificate, TlsParameters};
 use std::error::Error;
 use std::fs;
 
@@ -8,7 +8,7 @@ pub fn build_tls_parameters(config: &MailConfiguration) -> Result<TlsParameters,
     // Read the certificate file
     let pem_cert = fs::read(&config.tls_cert)
         .map_err(|e| format!("Failed to read certificate file: {}", e))?;
-    
+
     // Convert PEM to rustls Certificate
     let cert = Certificate::from_pem(&pem_cert)
         .map_err(|e| format!("Failed to build certificate from PEM: {}", e))?;

@@ -55,9 +55,7 @@ pub async fn update_post(
 
 // CONTENT ABOUT ///
 
-pub async fn get_about(
-    Extension(db_pool): Extension<StoreDb>,
-) -> Result<Json<About>, StatusCode> {
+pub async fn get_about(Extension(db_pool): Extension<StoreDb>) -> Result<Json<About>, StatusCode> {
     let about = db::get_about(db_pool)
         .await
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
