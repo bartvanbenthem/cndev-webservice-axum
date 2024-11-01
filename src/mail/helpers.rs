@@ -11,7 +11,7 @@ pub fn build_tls_parameters(config: &MailConfiguration) -> Result<TlsParameters,
 
     // Convert PEM to rustls Certificate
     let cert = Certificate::from_pem(&pem_cert)
-        .map_err(|e| format!("Failed to build certificate from PEM: {}", e))?;
+        .map_err(|e| format!("Failed to convert certificate to PEM: {}", e))?;
 
     let tls = TlsParameters::builder(config.tls_domain.to_owned())
         .add_root_certificate(cert)
