@@ -44,7 +44,7 @@ pub async fn send_email(
         match SmtpTransport::relay(&config.smtp_host) {
             Ok(smtp) => smtp.port(config.smtp_port).credentials(creds).build(),
             Err(err) => {
-                eprintln!("Failed to create SMTP transport with TLS: {}", err);
+                tracing::error!("Failed to create SMTP transport with TLS: {}", err);
                 return (StatusCode::INTERNAL_SERVER_ERROR, "Failed to send email").into_response();
             }
         }
@@ -53,7 +53,7 @@ pub async fn send_email(
         let tls = match tls_result {
             Ok(tls) => tls,
             Err(err) => {
-                eprintln!("Failed to build TLS parameters: {}", err);
+                tracing::error!("Failed to build TLS parameters: {}", err);
                 return (
                     StatusCode::INTERNAL_SERVER_ERROR,
                     "Failed to build TLS Parameters",
@@ -69,7 +69,7 @@ pub async fn send_email(
                 .credentials(creds)
                 .build(),
             Err(err) => {
-                eprintln!("Failed to create SMTP transport with TLS: {}", err);
+                tracing::error!("Failed to create SMTP transport with TLS: {}", err);
                 return (StatusCode::INTERNAL_SERVER_ERROR, "Failed to send email").into_response();
             }
         }
@@ -81,7 +81,7 @@ pub async fn send_email(
                 .credentials(creds)
                 .build(),
             Err(err) => {
-                eprintln!("Failed to create SMTP transport without TLS: {}", err);
+                tracing::error!("Failed to create SMTP transport without TLS: {}", err);
                 return (StatusCode::INTERNAL_SERVER_ERROR, "Failed to send email").into_response();
             }
         }
@@ -91,7 +91,7 @@ pub async fn send_email(
     match mailer.send(&email) {
         Ok(_) => (StatusCode::OK, "Email sent successfully").into_response(),
         Err(err) => {
-            eprintln!("Failed to send email: {}", err);
+            tracing::error!("Failed to send email: {}", err);
             (StatusCode::INTERNAL_SERVER_ERROR, "Failed to send email").into_response()
         }
     }
