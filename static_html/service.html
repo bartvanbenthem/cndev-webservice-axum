@@ -37,7 +37,7 @@
 
 <body>
     <main class="container" align="center">
-        <div id="postList"></div>
+        <div id="serviceList"></div>
         <br><br>
         <a class="btn btn-secondary" href="index.html">Back</a>
 
@@ -60,27 +60,26 @@
             return vars;
         }
 
-        function showPost() {
+        function showService() {
             console.log(id);
-            $.get("/api/v1/content/posts/" + id, function (data) {
-                var post = data;
+            $.get("/api/v1/content/services/" + id, function (data) {
+                var service = data;
                 
                 // Create the HTML structure with h2 for the title, small for the author, and p for content
-                var postContent = `
+                var serviceContent = `
                     <div class="container w-50" align="center">
-                        <h2>${post.title}</h2>
-                        <small>By ${post.author}</small>
+                        <img src="${service.img}" width="300" height="300">
                         <br><br>
-                        <p align="center">${post.content}</p>
+                        <p align="center">${service.content}</p>
                     </div>
                 `;
 
-                console.log(postContent);
-                $("#postList").html(postContent); // Replace the #postList content with new HTML
+                console.log(service);
+                $("#serviceList").html(serviceContent); // Replace the #serviceList content with new HTML
             });
         }
 
-        $(document).ready(showPost);
+        $(document).ready(showService);
         
     </script>
 </body>
