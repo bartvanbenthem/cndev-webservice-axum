@@ -61,7 +61,6 @@ pub async fn send_email(
                     .into_response();
             }
         };
-
         match SmtpTransport::relay(&config.smtp_host) {
             Ok(smtp) => smtp
                 .port(config.smtp_port)
