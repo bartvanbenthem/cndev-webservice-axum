@@ -183,7 +183,7 @@
     function listPosts() {
     $.get("/api/v1/content/posts", function(data) {
         // Get the last 4 posts (assuming data is already ordered by newest to oldest)
-        const latestPosts = data.slice(-4).reverse(); // Take last 4 posts and reverse to have the latest first
+        const latestPosts = data.reverse(); // reverse to have the latest first
 
         // Build the HTML layout as specified
         let postLayout = `
@@ -240,24 +240,22 @@
 
   function listServices() {
     $.get("/api/v1/content/services", function(data) {
-        // Get the last 4 services (assuming data is already ordered by newest to oldest)
-        const latestServices = data.slice(-4).reverse(); // Take last 4 services and reverse to have the latest first
 
         // Build the HTML layout as specified
         let serviceLayout = `
             <div class="row align-items-stretch">
                 <div class="col-md-6 mb-3 mb-md-0">
                     <div class="h-100 p-5 text-white tile-green rounded-3">
-                        <h2>${latestServices[0].title}</h2>
-                        <p>${truncateContent(latestServices[0].content, 35)}</p>
-                        <a href="service.html?id=${latestServices[0].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                        <h2>${data[0].title}</h2>
+                        <p>${data[0].summary}</p>
+                        <a href="service.html?id=${data[0].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
-                        <h2>${latestServices[1].title}</h2>
-                        <p>${truncateContent(latestServices[1].content, 35)}</p>
-                        <a href="service.html?id=${latestServices[1].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                        <h2>${data[1].title}</h2>
+                        <p>${data[1].summary}</p>
+                        <a href="service.html?id=${data[1].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                     </div>
                 </div>
             </div>
@@ -266,16 +264,16 @@
                 <div class="row align-items-stretch">
                     <div class="col-md-6">
                         <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
-                            <h2>${latestServices[2].title}</h2>
-                            <p>${truncateContent(latestServices[2].content, 35)}</p>
-                            <a href="service.html?id=${latestServices[2].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                            <h2>${data[2].title}</h2>
+                            <p>${data[2].summary}</p>
+                            <a href="service.html?id=${data[2].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="h-100 p-5 text-white tile-green rounded-3">
-                            <h2>${latestServices[3].title}</h2>
-                            <p>${truncateContent(latestServices[3].content, 35)}</p>
-                            <a href="service.html?id=${latestServices[3].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                            <h2>${data[3].title}</h2>
+                            <p>${data[3].summary}</p>
+                            <a href="service.html?id=${data[3].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                         </div>
                     </div>
                 </div>
@@ -284,17 +282,17 @@
             <div class="d-none d-md-block">
                 <div class="row align-items-stretch">
                     <div class="col-md-6">
-                        <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
-                            <h2>${latestServices[2].title}</h2>
-                            <p>${truncateContent(latestServices[2].content, 35)}</p>
-                            <a href="service.html?id=${latestServices[2].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                        <div class="h-100 p-5 text-white tile-green rounded-3">
+                            <h2>${data[4].title}</h2>
+                            <p>${data[4].summary}</p>
+                            <a href="service.html?id=${data[4].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="h-100 p-5 text-white tile-green rounded-3">
-                            <h2>${latestServices[3].title}</h2>
-                            <p>${truncateContent(latestServices[3].content, 35)}</p>
-                            <a href="service.html?id=${latestServices[3].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                        <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
+                            <h2>${data[5].title}</h2>
+                            <p>${data[5].summary}</p>
+                            <a href="service.html?id=${data[5].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                         </div>
                     </div>
                 </div>
