@@ -236,7 +236,7 @@
   $(document).ready(showAbout);
 
 
-  // POSTS //////////////////////////////////
+  // SERVICES //////////////////////////////////
 
   function listServices() {
     $.get("/api/v1/content/services", function(data) {
@@ -244,67 +244,60 @@
         // Build the HTML layout as specified
         let serviceLayout = `
             <div class="row align-items-stretch">
-                <div class="col-md-6 mb-3 mb-md-0">
+                <div class="col-md-4 mb-3 mb-md-0">
                     <div class="h-100 p-5 text-white tile-green rounded-3">
                         <h2>${data[0].title}</h2>
                         <p>${data[0].summary}</p>
                         <a href="service.html?id=${data[0].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4 mb-3 mb-md-0">
                     <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
                         <h2>${data[1].title}</h2>
                         <p>${data[1].summary}</p>
                         <a href="service.html?id=${data[1].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                     </div>
                 </div>
-            </div>
-            <br>
-            <div class="d-none d-md-block">
-                <div class="row align-items-stretch">
-                    <div class="col-md-6">
-                        <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
-                            <h2>${data[2].title}</h2>
-                            <p>${data[2].summary}</p>
-                            <a href="service.html?id=${data[2].id}" class="btn btn-outline-light" type="button">Lees verder</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="h-100 p-5 text-white tile-green rounded-3">
-                            <h2>${data[3].title}</h2>
-                            <p>${data[3].summary}</p>
-                            <a href="service.html?id=${data[3].id}" class="btn btn-outline-light" type="button">Lees verder</a>
-                        </div>
+                <div class="col-md-4">
+                    <div class="h-100 p-5 text-white tile-green rounded-3">
+                        <h2>${data[2].title}</h2>
+                        <p>${data[2].summary}</p>
+                        <a href="service.html?id=${data[2].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                     </div>
                 </div>
             </div>
             <br>
-            <div class="d-none d-md-block">
-                <div class="row align-items-stretch">
-                    <div class="col-md-6">
-                        <div class="h-100 p-5 text-white tile-green rounded-3">
-                            <h2>${data[4].title}</h2>
-                            <p>${data[4].summary}</p>
-                            <a href="service.html?id=${data[4].id}" class="btn btn-outline-light" type="button">Lees verder</a>
-                        </div>
+            <div class="row align-items-stretch">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
+                        <h2>${data[3].title}</h2>
+                        <p>${data[3].summary}</p>
+                        <a href="service.html?id=${data[3].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                     </div>
-                    <div class="col-md-6">
-                        <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
-                            <h2>${data[5].title}</h2>
-                            <p>${data[5].summary}</p>
-                            <a href="service.html?id=${data[5].id}" class="btn btn-outline-light" type="button">Lees verder</a>
-                        </div>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="h-100 p-5 text-white tile-green rounded-3">
+                        <h2>${data[4].title}</h2>
+                        <p>${data[4].summary}</p>
+                        <a href="service.html?id=${data[4].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
+                        <h2>${data[5].title}</h2>
+                        <p>${data[5].summary}</p>
+                        <a href="service.html?id=${data[5].id}" class="btn btn-outline-light" type="button">Lees verder</a>
                     </div>
                 </div>
             </div>
         `;
 
-        // Insert the new layout HTML into the container
-        $("#serviceList").html(serviceLayout);
-      });
-  }
+            // Insert the new layout HTML into the container
+            $("#serviceList").html(serviceLayout);
+        });
+    }
 
-  $(document).ready(listServices);
+    $(document).ready(listServices);
 
 
     // CONTACT //////////////////////////////////
