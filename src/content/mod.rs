@@ -32,6 +32,8 @@ pub async fn setup_service(listen_port: String) -> Result<Router> {
         .route("/posts", get(web_service::all_posts))
         .route("/posts/:id", get(web_service::get_post))
         .route("/about", get(web_service::get_about))
+        .route("/services", get(web_service::all_services))
+        .route("/services/:id", get(web_service::get_services))
         .layer(Extension(config))
         .layer(Extension(db_pool));
 

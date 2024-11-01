@@ -1,4 +1,4 @@
-use super::db::{self, About, Post, StoreDb};
+use super::db::{self, About, Post, Service, StoreDb};
 use axum::{http::StatusCode, Extension, Json};
 
 // CONTENT BLOG POSTS ///
@@ -60,4 +60,25 @@ pub async fn get_about(Extension(db_pool): Extension<StoreDb>) -> Result<Json<Ab
         .await
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
     Ok(Json(about))
+}
+
+// CONTENT SERVICES ///
+
+pub async fn all_services(
+    Extension(db_pool): Extension<StoreDb>,
+) -> Result<Json<Vec<Service>>, StatusCode> {
+    let services = db::list_services(db_pool)
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    Ok(Json(services))
+}
+
+pub async fn get_services(
+    Extension(db_pool): Extension<StoreDb>,
+    path: axum::extract::Path<i32>,
+) -> Result<Json<Service>, StatusCode> {
+    let service = db::get_service(db_pool, path.0)
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    Ok(Json(service))
 }

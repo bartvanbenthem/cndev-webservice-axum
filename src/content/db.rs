@@ -90,12 +90,39 @@ pub async fn update_post(
 
 #[derive(Serialize, Deserialize, Debug, FromRow)]
 pub struct About {
+    pub id: i32,
     pub content: String,
 }
 
 pub async fn get_about(db_pool: StoreDb) -> Result<About> {
-    let about_content = sqlx::query_as::<_, About>("SELECT * FROM about")
+    let about_content = sqlx::query_as::<_, About>("SELECT * FROM about ORDER BY id DESC LIMIT 1")
         .fetch_one(&db_pool.0)
         .await?;
     Ok(about_content)
+}
+
+// CONTENT SERVICES ///
+#[derive(Serialize, Deserialize, Debug, FromRow)]
+pub struct Service {
+    pub id: i32,
+    pub title: String,
+    pub category: String,
+    pub summary: String,
+    pub content: String,
+    pub img: String
+}
+
+pub async fn list_services(db_pool: StoreDb) -> Result<Vec<Service>> {
+    let services = sqlx::query_as::<_, Service>("SELECT * FROM services")
+        .fetch_all(&db_pool.0)
+        .await?;
+    Ok(services)
+}
+
+pub async fn get_service(db_pool: StoreDb, id: i32) -> Result<Service> {
+    let service = sqlx::query_as::<_, Service>("SELECT * FROM services WHERE id = ?")
+        .bind(id)
+        .fetch_one(&db_pool.0)
+        .await?;
+    Ok(service)
 }

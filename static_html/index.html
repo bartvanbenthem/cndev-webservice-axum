@@ -27,7 +27,7 @@
                 <a class="nav-link" href="#showAbout">About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#services">Services</a>
+                <a class="nav-link" href="#serviceList">Services</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#contact">Contact</a>
@@ -115,8 +115,10 @@
     <!-- ABOUT -->
     <div class="tile-darkgreen" id="showAbout"></div>
     
+    </br></br>
+
     <!-- SERVICES -->
-    <div id="services"></div>
+    <div id="serviceList"></div>
 
     <!-- CONTACT -->
     <div class="container" align="center" id="contact">
@@ -176,7 +178,7 @@
 
   <script>
 
-    // POSTS //////////////////////////////////
+  // POSTS //////////////////////////////////
 
     function listPosts() {
     $.get("/api/v1/content/posts", function(data) {
@@ -201,26 +203,7 @@
                     </div>
                 </div>
             </div>
-            <br>
-            <div class="d-none d-md-block">
-                <div class="row align-items-stretch">
-                    <div class="col-md-6">
-                        <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
-                            <h2>${latestPosts[2].title}</h2>
-                            <p>${truncateContent(latestPosts[2].content, 35)}</p>
-                            <a href="post.html?id=${latestPosts[2].id}" class="btn btn-outline-light" type="button">Lees verder</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="h-100 p-5 text-white tile-green rounded-3">
-                            <h2>${latestPosts[3].title}</h2>
-                            <p>${truncateContent(latestPosts[3].content, 35)}</p>
-                            <a href="post.html?id=${latestPosts[3].id}" class="btn btn-outline-light" type="button">Lees verder</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+          `;
 
         // Insert the new layout HTML into the container
         $("#postList").html(postLayout);
@@ -251,6 +234,80 @@
   }
 
   $(document).ready(showAbout);
+
+
+  // POSTS //////////////////////////////////
+
+  function listServices() {
+    $.get("/api/v1/content/services", function(data) {
+        // Get the last 4 services (assuming data is already ordered by newest to oldest)
+        const latestServices = data.slice(-4).reverse(); // Take last 4 services and reverse to have the latest first
+
+        // Build the HTML layout as specified
+        let serviceLayout = `
+            <div class="row align-items-stretch">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <div class="h-100 p-5 text-white tile-green rounded-3">
+                        <h2>${latestServices[0].title}</h2>
+                        <p>${truncateContent(latestServices[0].content, 35)}</p>
+                        <a href="service.html?id=${latestServices[0].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
+                        <h2>${latestServices[1].title}</h2>
+                        <p>${truncateContent(latestServices[1].content, 35)}</p>
+                        <a href="service.html?id=${latestServices[1].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="d-none d-md-block">
+                <div class="row align-items-stretch">
+                    <div class="col-md-6">
+                        <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
+                            <h2>${latestServices[2].title}</h2>
+                            <p>${truncateContent(latestServices[2].content, 35)}</p>
+                            <a href="service.html?id=${latestServices[2].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="h-100 p-5 text-white tile-green rounded-3">
+                            <h2>${latestServices[3].title}</h2>
+                            <p>${truncateContent(latestServices[3].content, 35)}</p>
+                            <a href="service.html?id=${latestServices[3].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="d-none d-md-block">
+                <div class="row align-items-stretch">
+                    <div class="col-md-6">
+                        <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
+                            <h2>${latestServices[2].title}</h2>
+                            <p>${truncateContent(latestServices[2].content, 35)}</p>
+                            <a href="service.html?id=${latestServices[2].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="h-100 p-5 text-white tile-green rounded-3">
+                            <h2>${latestServices[3].title}</h2>
+                            <p>${truncateContent(latestServices[3].content, 35)}</p>
+                            <a href="service.html?id=${latestServices[3].id}" class="btn btn-outline-light" type="button">Lees verder</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Insert the new layout HTML into the container
+        $("#serviceList").html(serviceLayout);
+      });
+  }
+
+  $(document).ready(listServices);
+
 
     // CONTACT //////////////////////////////////
 
