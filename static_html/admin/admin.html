@@ -163,7 +163,18 @@
             }
         }
 
-        $(document).ready(loadAll);
+    $(document).ready(loadAll);
+
+    // Check for auth token before loading the page
+    document.addEventListener("DOMContentLoaded", function () {
+    const token = localStorage.getItem("token");
+        // Check if token exists, if not redirect to login
+    if (!token) {
+        alert("You must be logged in to access this page.");
+        window.location.href = "index.html";  // Redirect to login
+    }
+    });
+
     </script>
 </body>
 </html>
