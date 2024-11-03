@@ -19,7 +19,16 @@ services:
       - APP_LISTEN_PORT=3002
       - APP_STATIC_CONTENT=/bin/static_html
       - AUTH_DB_FILENAME=/db/auth.db
-      - BLOG_DB_FILENAME=/db/content.db
+      - CONTENT_DB_FILENAME=/db/content.db
+      - MAIL_SMTP_HOST="localhost"
+      - MAIL_SMTP_USER="user"
+      - MAIL_SMTP_PASSWORD="user"
+      - MAIL_SMTP_PORT=1025
+      - MAIL_SMTP_PORT="placeholder"
+      - MAIL_MAIL_ADDRESS="mail@cndev.nl"
+      - MAIL_TLS=false
+      - MAIL_TLS_DOMAIN="cndev.nl"
+      - MAIL_TLS_CERT="path/to/certificate"
     volumes:
       - db:/db
 volumes:
