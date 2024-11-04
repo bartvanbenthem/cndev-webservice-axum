@@ -3,7 +3,6 @@ use lettre::SmtpTransport;
 use std::error::Error;
 use std::fs;
 
-
 use crate::mail::MailConfiguration;
 
 pub fn build_tls_parameters(config: &MailConfiguration) -> Result<TlsParameters, Box<dyn Error>> {
@@ -23,22 +22,19 @@ pub fn build_tls_parameters(config: &MailConfiguration) -> Result<TlsParameters,
     Ok(tls)
 }
 
-#[allow(dead_code)]
-pub async fn check_smtp_server(smtp_server: &str, smtp_port: u16) -> Result<(), Box<dyn Error>> {
+pub async fn check_smtp_server(smtp_server: &str, smtp_port: u16) {
     // Create a transport instance
     let transport = SmtpTransport::builder_dangerous(smtp_server)
         .port(smtp_port)
         .build();
 
     // Try to connect to the server
-    match transport.test_connection() {
-        Ok(_) => {
-            tracing::info!("Successfully connected to the SMTP server at {}:{}", smtp_server, smtp_port);
-            Ok(())
-        }
-        Err(err) => {
-            tracing::error!("Failed to connect to the SMTP server: {}", err);
-            Err(Box::new(err))
-        }
+    if let Err(err) = transport.test_connection() {
+        tracing::error!(
+            "Failed to connect to the SMTP server at {}:{} - {}",
+            smtp_server,
+            smtp_port,
+            err
+        );
     }
 }

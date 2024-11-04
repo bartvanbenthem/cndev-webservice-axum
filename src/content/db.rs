@@ -109,7 +109,7 @@ pub struct Service {
     pub category: String,
     pub summary: String,
     pub content: String,
-    pub img: String
+    pub img: String,
 }
 
 pub async fn list_services(db_pool: StoreDb) -> Result<Vec<Service>> {
