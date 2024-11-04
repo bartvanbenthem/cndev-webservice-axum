@@ -13,8 +13,6 @@ use std::sync::Arc;
 pub async fn setup_service() -> Result<Router> {
     let config = configuration::MailConfiguration::load()?;
 
-    println!("{:?}", config);
-
     let router = Router::new()
         .route("/send", post(send_email))
         .with_state(Arc::new(config));
