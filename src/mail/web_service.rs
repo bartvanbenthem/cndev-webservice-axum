@@ -1,4 +1,4 @@
-use crate::mail::helpers::{build_tls_parameters, check_smtp_server};
+use crate::mail::helpers::build_tls_parameters;
 use crate::mail::MailConfiguration;
 
 use axum::{extract::Form, extract::State, http::StatusCode, response::IntoResponse};
@@ -30,7 +30,7 @@ pub async fn send_email(
     );
 
     let email = Message::builder()
-        .from(form.from.parse().expect("Invalid from address"))
+        .from(config.mail_address.parse().expect("Invalid from address"))
         .to(config.mail_address.parse().expect("Invalid to address"))
         .subject(&form.subject)
         .header(ContentType::TEXT_PLAIN)
@@ -38,9 +38,6 @@ pub async fn send_email(
         .expect("Failed to build email");
 
     let creds = Credentials::new(config.smtp_user.clone(), config.smtp_password.clone());
-
-    // check smtp connection
-    check_smtp_server(&config.smtp_host, config.smtp_port).await;
 
     // Setup SMTP transport with appropriate TLS setting
     let mailer = if config.tls && config.tls_cert.len() == 0 {

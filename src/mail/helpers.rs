@@ -22,6 +22,7 @@ pub fn build_tls_parameters(config: &MailConfiguration) -> Result<TlsParameters,
     Ok(tls)
 }
 
+#[allow(dead_code)]
 pub async fn check_smtp_server(smtp_server: &str, smtp_port: u16) {
     // Create a transport instance
     let transport = SmtpTransport::builder_dangerous(smtp_server)
