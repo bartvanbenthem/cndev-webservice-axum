@@ -3,18 +3,18 @@ use serde::{Deserialize, Serialize};
 use sqlx::{prelude::FromRow, sqlite::SqliteConnectOptions};
 
 #[derive(Clone)]
-pub struct StoreDb(pub sqlx::SqlitePool);
+pub struct ContentDb(pub sqlx::SqlitePool);
 
-pub async fn get_connection_pool(filename: &str) -> Result<StoreDb> {
+pub async fn get_connection_pool(filename: &str) -> Result<ContentDb> {
     let options = SqliteConnectOptions::new()
         .filename(filename)
         .create_if_missing(true);
 
     let connection_pool = sqlx::SqlitePool::connect_with(options).await?;
-    Ok(StoreDb(connection_pool))
+    Ok(ContentDb(connection_pool))
 }
 
-pub async fn perform_migrations(db_pool: StoreDb) -> Result<()> {
+pub async fn perform_migrations(db_pool: ContentDb) -> Result<()> {
     sqlx::migrate!("src/content/migrations")
         .run(&db_pool.0)
         .await?;
@@ -31,14 +31,14 @@ pub struct Post {
     pub content: String,
 }
 
-pub async fn list_posts(db_pool: StoreDb) -> Result<Vec<Post>> {
+pub async fn list_posts(db_pool: ContentDb) -> Result<Vec<Post>> {
     let posts = sqlx::query_as::<_, Post>("SELECT * FROM posts")
         .fetch_all(&db_pool.0)
         .await?;
     Ok(posts)
 }
 
-pub async fn get_post(db_pool: StoreDb, id: i32) -> Result<Post> {
+pub async fn get_post(db_pool: ContentDb, id: i32) -> Result<Post> {
     let post = sqlx::query_as::<_, Post>("SELECT * FROM posts WHERE id = ?")
         .bind(id)
         .fetch_one(&db_pool.0)
@@ -46,7 +46,7 @@ pub async fn get_post(db_pool: StoreDb, id: i32) -> Result<Post> {
     Ok(post)
 }
 
-pub async fn delete_post(db_pool: StoreDb, id: i32) -> Result<()> {
+pub async fn delete_post(db_pool: ContentDb, id: i32) -> Result<()> {
     sqlx::query("DELETE FROM posts WHERE id = ?")
         .bind(id)
         .execute(&db_pool.0)
@@ -55,7 +55,7 @@ pub async fn delete_post(db_pool: StoreDb, id: i32) -> Result<()> {
 }
 
 pub async fn add_post(
-    db_pool: StoreDb,
+    db_pool: ContentDb,
     title: String,
     author: String,
     content: String,
@@ -70,7 +70,7 @@ pub async fn add_post(
 }
 
 pub async fn update_post(
-    db_pool: StoreDb,
+    db_pool: ContentDb,
     id: i32,
     title: String,
     author: String,
@@ -94,7 +94,7 @@ pub struct About {
     pub content: String,
 }
 
-pub async fn get_about(db_pool: StoreDb) -> Result<About> {
+pub async fn get_about(db_pool: ContentDb) -> Result<About> {
     let about_content = sqlx::query_as::<_, About>("SELECT * FROM about ORDER BY id DESC LIMIT 1")
         .fetch_one(&db_pool.0)
         .await?;
@@ -112,14 +112,14 @@ pub struct Service {
     pub img: String,
 }
 
-pub async fn list_services(db_pool: StoreDb) -> Result<Vec<Service>> {
+pub async fn list_services(db_pool: ContentDb) -> Result<Vec<Service>> {
     let services = sqlx::query_as::<_, Service>("SELECT * FROM services")
         .fetch_all(&db_pool.0)
         .await?;
     Ok(services)
 }
 
-pub async fn get_service(db_pool: StoreDb, id: i32) -> Result<Service> {
+pub async fn get_service(db_pool: ContentDb, id: i32) -> Result<Service> {
     let service = sqlx::query_as::<_, Service>("SELECT * FROM services WHERE id = ?")
         .bind(id)
         .fetch_one(&db_pool.0)
