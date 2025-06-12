@@ -87,9 +87,9 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
-                    let table = "<table class='table table-striped'><thead><tr><th>Username</th><th>Password</th></tr></thead><tbody>";
+                    let table = "<table class='table table-striped'><thead><tr><th>Username</th></tr></thead><tbody>";
                     for (let i = 0; i < data.length; i++) {
-                        table += "<tr><td>" + data[i].username + "</td><td>" + data[i].password + "</td></tr>";
+                        table += "<tr><td>" + data[i].username + "</td></tr>";
                     }
                     table += "</tbody></table>";
                     $("#admins").html(table);
