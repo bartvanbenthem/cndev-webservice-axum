@@ -2,86 +2,65 @@
 <html>
 
 <head>
-    <title>CNDEV WebService Axum</title>
+    <title>CNDEV Webservice AXUM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
     <script src="js/helpers.js" type="text/javascript"></script>
     <script src="js/footer.js" type="text/javascript"></script>
+    <script src="js/handlebars.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 navbar-custom">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">CNDEV</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link" href='/'>Back</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-            <li class="nav-item">
-                <a class="nav-link" href="admin/index.html">Admin</a>
-            </li>
-        </ul>
-      </div>
-    </div>
-</nav>
-
-<br><br>
-
 <body>
-    <main class="container" align="center">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">CNDEV</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#serviceList"><strong><<</strong></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin/index.html">Admin</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <br><br>
+
+    <main class="container text-center">
         <div id="serviceList"></div>
         <br><br>
-        <a class="btn btn-secondary" href="index.html">Back</a>
-
+        <a class="btn btn-secondary" href="index.html#serviceList">Back</a>
     </main>
 
     <br><br>
     <div id="footerContainer"></div>
-    
-    <script>
-        let id = getUrlVars()["id"];
 
-        function getUrlVars() {
-            var vars = [], hash;
-            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-            for (var i = 0; i < hashes.length; i++) {
-                hash = hashes[i].split('=');
-                vars.push(hash[0]);
-                vars[hash[0]] = hash[1];
-            }
-            return vars;
-        }
+    <!-- Handlebars Template -->
+    <script id="service-template" type="text/x-handlebars-template">
 
-        function showService() {
-            console.log(id);
-            $.get("/api/v1/content/services/" + id, function (data) {
-                var service = data;
-                
-                // Create the HTML structure with h2 for the title, small for the author, and p for content
-                var serviceContent = `
-                    <div class="container w-50" align="center">
-                        <img src="${service.img}" width="300" height="300">
-                        <br><br>
-                        <p align="center">${service.content}</p>
-                    </div>
-                `;
+        <div class="container text-center">
+            <!-- Image on top -->
+            <img src="{{img}}" class="service-image rounded-3" alt="Image Description">
 
-                console.log(service);
-                $("#serviceList").html(serviceContent); // Replace the #serviceList content with new HTML
-            });
-        }
-
-        $(document).ready(showService);
-        
+            <!-- Text block with background -->
+            <div class="tile-service rounded-3 mt-4">
+                <p class="mb-0">{{{content}}}</p>
+            </div>
+        </div>
     </script>
+
+    <script src="service.js" type="text/javascript"></script>
 </body>
 
 </html>

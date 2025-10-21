@@ -6,7 +6,7 @@ use crate::auth::auth_layers::ListenPort;
 use anyhow::Result;
 use axum::{
     middleware,
-    routing::{get, post},
+    routing::{get, post, delete},
     Extension, Router,
 };
 use tower_http::cors::CorsLayer;
@@ -22,7 +22,7 @@ pub async fn setup_service(listen_port: String) -> Result<Router> {
         .layer(Extension(config.clone()))
         .layer(Extension(db_pool.clone()))
         .route("/posts/add", post(web_service::add_post))
-        .route("/posts/delete/:id", get(web_service::delete_post))
+        .route("/posts/delete/:id", delete(web_service::delete_post))
         .route("/posts/update/:id", post(web_service::update_post))
         .route_layer(middleware::from_fn(auth_layers::require_remote_token))
         .layer(Extension(ListenPort(listen_port)));

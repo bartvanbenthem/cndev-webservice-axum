@@ -28,6 +28,7 @@ pub struct Post {
     pub id: i32,
     pub title: String,
     pub author: String,
+    pub img: String,
     pub content: String,
 }
 
@@ -58,11 +59,13 @@ pub async fn add_post(
     db_pool: ContentDb,
     title: String,
     author: String,
+    img: String,
     content: String,
 ) -> Result<()> {
-    sqlx::query("INSERT INTO posts (title, author, content) VALUES (?, ?, ?)")
+    sqlx::query("INSERT INTO posts (title, author, img, content) VALUES (?, ?, ?, ?)")
         .bind(title)
         .bind(author)
+        .bind(img)
         .bind(content)
         .execute(&db_pool.0)
         .await?;
@@ -74,11 +77,13 @@ pub async fn update_post(
     id: i32,
     title: String,
     author: String,
+    img: String,
     content: String,
 ) -> Result<()> {
-    sqlx::query("UPDATE posts SET title = ?, author = ?, content = ? WHERE id = ?")
+    sqlx::query("UPDATE posts SET title = ?, author = ?, img = ?, content = ? WHERE id = ?")
         .bind(title)
         .bind(author)
+        .bind(img)
         .bind(content)
         .bind(id)
         .execute(&db_pool.0)
@@ -108,8 +113,8 @@ pub struct Service {
     pub title: String,
     pub category: String,
     pub summary: String,
-    pub content: String,
     pub img: String,
+    pub content: String,
 }
 
 pub async fn list_services(db_pool: ContentDb) -> Result<Vec<Service>> {

@@ -1,96 +1,81 @@
 <!DOCTYPE html>
 <html>
+  
 <head>
-    <title>CNDEV WebService Axum</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="css/custom.css" rel="stylesheet" type="text/css">
-    <script src="js/helpers.js" type="text/javascript"></script>
-    <script src="js/footer.js" type="text/javascript"></script>
+  <title>CNDEV Webservice AXUM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
+  <script src="js/helpers.js"></script>
+  <script src="js/footer.js"></script>
+  <script src="js/handlebars.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body>  
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 navbar-custom">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">CNDEV</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-              <li class="nav-item">
-                <a class="nav-link" href='/'>Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#showAbout">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#serviceList">Services</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#contact">Contact</a>
-              </li>
-            </ul>
-            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="admin/index.html">Admin</a>
-                </li>
-            </ul>
-          </div>
-        </div>
-    </nav>
-
-    <div class="jumbotron d-md-none">
-        </br></br></br></br>
-        <h1 class="display-8">Welcome</h1>
-        <p> On the cndev starter web app </p>
-        <p><a class="btn btn-lg btn-secondary" href="#contact">Contact</a></p>
-        </div>
-        
-        <div class="d-md-none">
-        </br>
+<body class="d-flex flex-column min-vh-100">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">CNDEV</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item"><a class="nav-link" href='/'>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#showAbout">Bio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#serviceList">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+          <li class="nav-item"><a class="nav-link" href="admin/index.html">Admin</a></li>
+        </ul>
+      </div>
     </div>
-    
-    
-    <div class="d-none d-md-block">
-      <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+  </nav>
+
+  <div class="jumbotron d-md-none">
+    <br><br><br><br>
+    <h1 class="display-8">Welcome</h1>
+    <p>On the CNDEV website.</p>
+    <p><a class="btn btn-lg btn-secondary" href="#contact">Contact</a></p>
+  </div>
+  <div class="d-md-none"><br></div>
+
+  <div class="d-none d-md-block">
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2"></button>
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="img/banner-3.jpg" class="d-block w-100"/>
-    
+          <img src="img/banner-1.jpg" class="d-block w-100" />
           <div class="container">
             <div class="carousel-caption text-start">
               <h1>Welcome</h1>
-              <p>On the cndev starter web application</p>
-              <p><a class="btn btn-lg carousel-btn-dark" href="#contact">Neem contact op</a></p>
+              <p>On the CNDEV website.</p>
+              <p><a class="btn btn-lg carousel-btn-dark" href="#contact">Take contact</a></p>
             </div>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="img/banner-5.jpg" class="d-block w-100"/>
-    
+          <img src="img/banner-3.jpg" class="d-block w-100" />
           <div class="container">
             <div class="carousel-caption text-start">
               <h1>Services</h1>
-              <p>All kinds of services.</p>
-              <p><a class="btn btn-lg carousel-btn-dark" href="#services">Services</a></p>
+              <p>All types of services.</p>
+              <p><a class="btn btn-lg carousel-btn-dark" href="#serviceList">Services</a></p>
             </div>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="img/banner-1.jpg" class="d-block w-100"/>
-    
+          <img src="img/banner-5.jpg" class="d-block w-100" />
           <div class="container">
             <div class="carousel-caption text-start">
-              <h1>Contact us.</h1>
-              <p><a class="btn btn-lg btn-secondary" href="#contact">Neem contact op</a></p>
+              <h1>[cndev templates]</h1>
+              <p><a class="btn btn-lg btn-secondary" href="#contact">Take contact</a></p>
             </div>
           </div>
         </div>
@@ -103,68 +88,51 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
-      </div>
     </div>
+  </div>
 
-    <main>
-    <!-- BLOG POSTS -->
+  <main>
     <div id="postList"></div>
-
-    </br></br>
-  
-    <!-- ABOUT -->
+    <br><br>
     <div class="tile-darkgreen" id="showAbout"></div>
-    
-    </br></br>
-
-    <!-- SERVICES -->
+    <br><br>
     <div id="serviceList"></div>
 
-    <!-- CONTACT -->
     <div class="container" align="center" id="contact">
-    </br></br>
-    <h2>Neem contact op</h2>
-    <hr>
-        <div class="row">
-            <div class="col-xs-2">   
-                <form id="contactForm">
-                  <!-- Include the CSRF token if needed -->
-                  <div class="mb-3 w-50">
-                      <label class="form-label" for="name">Naam:</label>
-                      <input class="form-control tile-beige" type="text" name="name" id="name" required>
-                      <small id="nameError" class="text-danger"></small>
-                  </div>
-                  <div class="mb-3 w-50">
-                      <label class="form-label" for="from">Email:</label>
-                      <input class="form-control tile-beige" type="email" name="from" id="from" required>
-                      <small id="emailError" class="text-danger"></small>
-                  </div>
-                  <div class="mb-3 w-50">
-                      <label class="form-label" for="phone">Tel. Nummer:</label>
-                      <input class="form-control tile-beige" type="text" name="phone" id="phone" required>
-                      <small id="phoneError" class="text-danger"></small>
-                  </div>
-                  <div class="mb-3 w-50">
-                      <label class="form-label" for="subject">Onderwerp:</label>
-                      <input class="form-control tile-beige" type="text" name="subject" id="subject" required>
-                      <small id="subjectError" class="text-danger"></small>
-                  </div>
-                  <div class="mb-3 w-50">
-                      <label class="form-label" for="message">Bericht:</label>
-                      <textarea class="form-control tile-beige" rows="3" name="message" id="message" required></textarea>
-                      <small id="messageError" class="text-danger"></small>
-                  </div>
-                  <div>
-                      <input type="submit" class="btn btn-secondary" value="Send" />
-                  </div>
-              </form>
-            </div>
+      <br><br>
+      <h2>Contact</h2>
+      <hr>
+      <form id="contactForm">
+        <div class="mb-3 w-50">
+          <label for="name" class="form-label">Name:</label>
+          <input type="text" id="name" name="name" class="form-control tile-beige" required>
+          <small id="nameError" class="text-danger"></small>
         </div>
+        <div class="mb-3 w-50">
+          <label for="from" class="form-label">Email:</label>
+          <input type="email" id="from" name="from" class="form-control tile-beige" required>
+          <small id="emailError" class="text-danger"></small>
+        </div>
+        <div class="mb-3 w-50">
+          <label for="phone" class="form-label">Phone:</label>
+          <input type="text" id="phone" name="phone" class="form-control tile-beige" required>
+          <small id="phoneError" class="text-danger"></small>
+        </div>
+        <div class="mb-3 w-50">
+          <label for="subject" class="form-label">Subject:</label>
+          <input type="text" id="subject" name="subject" class="form-control tile-beige" required>
+          <small id="subjectError" class="text-danger"></small>
+        </div>
+        <div class="mb-3 w-50">
+          <label for="message" class="form-label">Message:</label>
+          <textarea id="message" name="message" rows="3" class="form-control tile-beige" required></textarea>
+          <small id="messageError" class="text-danger"></small>
+        </div>
+        <input type="submit" class="btn btn-secondary" value="Send">
+      </form>
     </div>
-    
-    <div> <br /> </div>
-    
-    <!-- Map -->
+
+    <br>
     <div style="width: 100%; overflow: hidden; height: 550px;">
         <iframe src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Arnhem%20centraal%20+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" 
             width="100%" 
@@ -172,230 +140,52 @@
             style="margin-top: -60px;">
         </iframe>
     </div>
-</main>
+    <div id="footerContainer"></div>
+  </main>
 
-<div id="footerContainer"></div>
+  <!-- Handlebars Templates -->
+  <script id="post-template" type="text/x-handlebars-template">
+    <div class="row align-items-stretch">
+      {{#each posts}}
+      <div class="col-md-6 mb-3 mb-md-0">
+        <div class="h-100 p-5 text-white {{#if @first}}tile-green{{else}}bg-dark tile-blue{{/if}} rounded-3">
+          <h2>{{title}}</h2>
+          <p>{{{summary}}}</p>
+          <a href="post.html?id={{id}}" class="btn btn-outline-light">Lees verder</a>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </script>
 
-  <script>
+  <script id="about-template" type="text/x-handlebars-template">
+    <div class="container w-50 text-dark text-center">
+      <br><br>
+      <p>{{{content}}}</p>
+      <br><br>
+    </div>
+  </script>
 
-  // POSTS //////////////////////////////////
-
-    function listPosts() {
-    $.get("/api/v1/content/posts", function(data) {
-        // Get the last 4 posts (assuming data is already ordered by newest to oldest)
-        const latestPosts = data.reverse(); // reverse to have the latest first
-
-        // Build the HTML layout as specified
-        let postLayout = `
-            <div class="row align-items-stretch">
-                <div class="col-md-6 mb-3 mb-md-0">
-                    <div class="h-100 p-5 text-white tile-green rounded-3">
-                        <h2>${latestPosts[0].title}</h2>
-                        <p>${truncateContent(latestPosts[0].content, 35)}</p>
-                        <a href="post.html?id=${latestPosts[0].id}" class="btn btn-outline-light" type="button">Lees verder</a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
-                        <h2>${latestPosts[1].title}</h2>
-                        <p>${truncateContent(latestPosts[1].content, 35)}</p>
-                        <a href="post.html?id=${latestPosts[1].id}" class="btn btn-outline-light" type="button">Lees verder</a>
-                    </div>
-                </div>
-            </div>
-          `;
-
-        // Insert the new layout HTML into the container
-        $("#postList").html(postLayout);
-      });
-  }
-
-  $(document).ready(listPosts);
-
-// ABOUT //////////////////////////////////
-
-  function showAbout() {
-              $.get("/api/v1/content/about", function (data) {
-                  var about = data;
-                  
-                  // Create the HTML structure with h2 for the title.
-                  var aboutContent = `
-                      <div class="container w-50 text-dark" align="center">
-                          <br><br>
-                          <h2> About us</h2>
-                          <p align="center">${about.content}</p>
-                          <br><br>
-                      </div>
-                  `;
-
-                  console.log(aboutContent);
-                  $("#showAbout").html(aboutContent); // Replace the #postList content with new HTML
-              });
-  }
-
-  $(document).ready(showAbout);
+  <script id="services-template" type="text/x-handlebars-template">
+    {{#each services}}
+      {{#if (eq (mod @index 3) 0)}}
+        {{#unless @first}}</div><br>{{/unless}}
+        <div class="row align-items-stretch">
+      {{/if}}
+      
+      <div class="col-md-4 mb-3 mb-md-0">
+        <div class="h-100 p-5 text-white {{#if (eq (mod @index 2) 0)}}tile-green{{else}}bg-dark tile-blue{{/if}} rounded-3">
+          <h2>{{title}}</h2>
+          <p>{{summary}}</p>
+          <a href="service.html?id={{id}}" class="btn btn-outline-light">Lees verder</a>
+        </div>
+      </div>
+      
+      {{#if (eq (mod @index 3) 2)}}</div>{{/if}}
+    {{/each}}
+  </script>
 
 
-  // SERVICES //////////////////////////////////
-
-  function listServices() {
-    $.get("/api/v1/content/services", function(data) {
-
-        // Build the HTML layout as specified
-        let serviceLayout = `
-            <div class="row align-items-stretch">
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <div class="h-100 p-5 text-white tile-green rounded-3">
-                        <h2>${data[0].title}</h2>
-                        <p>${data[0].summary}</p>
-                        <a href="service.html?id=${data[0].id}" class="btn btn-outline-light" type="button">Lees verder</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
-                        <h2>${data[1].title}</h2>
-                        <p>${data[1].summary}</p>
-                        <a href="service.html?id=${data[1].id}" class="btn btn-outline-light" type="button">Lees verder</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="h-100 p-5 text-white tile-green rounded-3">
-                        <h2>${data[2].title}</h2>
-                        <p>${data[2].summary}</p>
-                        <a href="service.html?id=${data[2].id}" class="btn btn-outline-light" type="button">Lees verder</a>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="row align-items-stretch">
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
-                        <h2>${data[3].title}</h2>
-                        <p>${data[3].summary}</p>
-                        <a href="service.html?id=${data[3].id}" class="btn btn-outline-light" type="button">Lees verder</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <div class="h-100 p-5 text-white tile-green rounded-3">
-                        <h2>${data[4].title}</h2>
-                        <p>${data[4].summary}</p>
-                        <a href="service.html?id=${data[4].id}" class="btn btn-outline-light" type="button">Lees verder</a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="h-100 p-5 text-white bg-dark tile-blue rounded-3">
-                        <h2>${data[5].title}</h2>
-                        <p>${data[5].summary}</p>
-                        <a href="service.html?id=${data[5].id}" class="btn btn-outline-light" type="button">Lees verder</a>
-                    </div>
-                </div>
-            </div>
-        `;
-
-            // Insert the new layout HTML into the container
-            $("#serviceList").html(serviceLayout);
-        });
-    }
-
-    $(document).ready(listServices);
-
-
-    // CONTACT //////////////////////////////////
-
-    // FORM VALIDATION
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
-    let isValid = true; // Flag to track validity
-    clearErrors(); // Clear previous error messages
-
-    // Validate Name
-    const name = document.getElementById('name').value.trim();
-    if (name === '') {
-        displayError('nameError', 'Naam is verplicht.');
-        isValid = false;
-    }
-
-    // Validate Email
-    const email = document.getElementById('from').value.trim();
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        displayError('emailError', 'Voer een geldig e-mailadres in.');
-        isValid = false;
-    }
-
-    // Validate Phone
-    const phone = document.getElementById('phone').value.trim();
-    const phonePattern = /^\d{10}$/; // Adjust this regex based on your phone number format
-    if (!phonePattern.test(phone)) {
-        displayError('phoneError', 'Voer een geldig telefoonnummer in (10 cijfers).');
-        isValid = false;
-    }
-
-    // Validate Subject
-    const subject = document.getElementById('subject').value.trim();
-    if (subject === '') {
-        displayError('subjectError', 'Onderwerp is verplicht.');
-        isValid = false;
-    }
-
-    // Validate Message
-    const message = document.getElementById('message').value.trim();
-    if (message === '') {
-        displayError('messageError', 'Bericht is verplicht.');
-        isValid = false;
-    }
-
-    // Prevent form submission if invalid
-    if (!isValid) {
-        event.preventDefault();
-    }
-});
-
-function displayError(errorId, message) {
-    document.getElementById(errorId).textContent = message;
-}
-
-function clearErrors() {
-    const errorIds = ['nameError', 'emailError', 'phoneError', 'subjectError', 'messageError'];
-    errorIds.forEach(id => {
-        document.getElementById(id).textContent = '';
-    });
-}
-
-// SEND EMAIL
-document.getElementById('contactForm').addEventListener('submit', async function (event) {
-       event.preventDefault(); // Prevent default form submission
-
-       // Collect form data
-       const formData = new FormData(this);
-
-       // Convert form data to URL-encoded format
-       const urlEncodedData = new URLSearchParams(formData);
-
-       try {
-           // Send the request as x-www-form-urlencoded
-           const response = await fetch('api/v1/mail/send', {
-               method: 'POST',
-               headers: {
-                   'Content-Type': 'application/x-www-form-urlencoded',
-               },
-               body: urlEncodedData,
-           });
-
-           // Handle the response
-           if (response.ok) {
-               alert('Email sent successfully!');
-               this.reset(); // Optionally reset the form
-           } else {
-               const errorText = await response.text();
-               alert(`Failed to send email: ${errorText}`);
-           }
-       } catch (error) {
-           console.error('Error submitting form:', error);
-           alert('An error occurred while sending the email. Please try again later.');
-       }
-   });
-
-</script>
-
+  <script src="index.js" type="text/javascript"></script>
 </body>
 </html>

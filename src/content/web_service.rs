@@ -2,7 +2,6 @@ use super::db::{self, About, Post, Service, ContentDb};
 use axum::{http::StatusCode, Extension, Json};
 
 // CONTENT BLOG POSTS ///
-
 pub async fn all_posts(
     Extension(db_pool): Extension<ContentDb>,
 ) -> Result<Json<Vec<Post>>, StatusCode> {
@@ -36,7 +35,7 @@ pub async fn add_post(
     Extension(db_pool): Extension<ContentDb>,
     Json(post): Json<Post>,
 ) -> Result<StatusCode, StatusCode> {
-    db::add_post(db_pool, post.title, post.author, post.content)
+    db::add_post(db_pool, post.title, post.author, post.img, post.content)
         .await
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
     Ok(StatusCode::OK)
@@ -47,14 +46,13 @@ pub async fn update_post(
     path: axum::extract::Path<i32>,
     Json(post): Json<Post>,
 ) -> Result<StatusCode, StatusCode> {
-    db::update_post(db_pool, path.0, post.title, post.author, post.content)
+    db::update_post(db_pool, path.0, post.title, post.author, post.img, post.content)
         .await
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
     Ok(StatusCode::OK)
 }
 
 // CONTENT ABOUT ///
-
 pub async fn get_about(Extension(db_pool): Extension<ContentDb>) -> Result<Json<About>, StatusCode> {
     let about = db::get_about(db_pool)
         .await
@@ -63,7 +61,6 @@ pub async fn get_about(Extension(db_pool): Extension<ContentDb>) -> Result<Json<
 }
 
 // CONTENT SERVICES ///
-
 pub async fn all_services(
     Extension(db_pool): Extension<ContentDb>,
 ) -> Result<Json<Vec<Service>>, StatusCode> {
