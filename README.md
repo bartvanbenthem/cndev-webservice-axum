@@ -23,8 +23,8 @@ Now the mail server is running on port 1025, To view the UI, start a web browser
 ### Download & Start CNDEV Axum webapp
 ```bash
 source ../00-ENV/env.sh # get $CR_PAT env variable
-git clone https://bartvanbenthem:$CR_PAT@github.com/bartvanbenthem/website-eileen.git
-cd website-eileen
+git clone https://bartvanbenthem:$CR_PAT@github.com/bartvanbenthem/cndev-webservice-axum.git
+cd cndev-webservice-axum
 
 docker compose up --build
 docker container ls
